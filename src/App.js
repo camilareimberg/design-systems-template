@@ -1,5 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { ChakraProvider } from "@chakra-ui/react";
+import Card from "./components/Card";
+import styled from "styled-components";
+
+const Main = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+`;
 
 export default function App() {
   const [users, setUsers] = useState([]);
@@ -21,10 +29,16 @@ export default function App() {
     }
   };
 
+  //Modificando o card com os valores da API
+  const cardScreen = users.map((user) => {
+    return <Card name={user.name} />;
+  });
+
   return (
     <>
-      <h1>Me apague quando for iniciar!</h1>
-      <p>Chame o Card aqui!</p>
+      <ChakraProvider>
+        <Main>{cardScreen}</Main>
+      </ChakraProvider>
     </>
   );
 }
